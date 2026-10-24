@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Course Expectations & Learning Mindset Survey</title>
+<style>
+  :root {
+    --blue: #174a8b;
+    --blue-dark: #103565;
+    --yellow: #f4c542;
+    --grey-bg: #eef1f5;
+    --grey-text: #626d7b;
+    --border: #dce2e9;
+    --white: #ffffff;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 32px 16px 56px;
+    background: var(--grey-bg);
+    color: #202b3a;
+    font-family: Inter, "Segoe UI", Arial, sans-serif;
+    line-height: 1.55;
+  }
+  .wrap { max-width: 850px; margin: 0 auto; }
+  .hero {
+    background: var(--blue);
+    color: white;
+    padding: 34px 34px 28px;
+    border-radius: 18px 18px 0 0;
+    border-bottom: 7px solid var(--yellow);
+  }
+  .eyebrow {
+    text-transform: uppercase;
+    letter-spacing: .12em;
+    font-size: .76rem;
+    font-weight: 800;
+    color: var(--yellow);
+    margin: 0 0 8px;
+  }
+  h1 { margin: 0 0 10px; font-size: clamp(1.7rem, 4vw, 2.35rem); line-height: 1.15; }
+  .hero p { margin: 0; color: #e7effa; max-width: 690px; }
+  .progress-wrap { padding: 16px 22px; background: #fff; border-bottom: 1px solid var(--border); }
+  .progress-label { display:flex; justify-content:space-between; gap:12px; font-size:.85rem; color:var(--grey-text); margin-bottom:8px; }
+  .progress { height: 7px; background: #e8edf3; border-radius: 99px; overflow: hidden; }
+  .progress > div { height:100%; width:0%; background:var(--yellow); transition:width .2s; }
+  form { background: transparent; }
+  .section {
+    margin-top: 18px;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px;
+    box-shadow: 0 3px 12px rgba(25, 45, 70, .035);
+  }
+  .section h2 { margin: 0 0 5px; color: var(--blue); font-size: 1.18rem; }
+  .section .hint { margin: 0 0 22px; color: var(--grey-text); font-size: .92rem; }
+  .question { padding: 17px 0; border-top: 1px solid #edf0f4; }
+  .question:first-of-type { border-top: 0; padding-top: 0; }
+  .q-title { display:block; font-weight:700; margin-bottom: 10px; }
+  .optional { font-weight:500; color:var(--grey-text); font-size:.83rem; }
+  .choice {
+    display:flex; align-items:flex-start; gap:10px; padding:9px 11px;
+    margin: 5px 0; border:1px solid #e5eaf0; border-radius:9px; cursor:pointer;
+    transition:background .15s, border-color .15s;
+  }
+  .choice:hover { background:#f7f9fc; border-color:#a9bfda; }
+  input[type="radio"], input[type="checkbox"] { accent-color:var(--blue); margin-top:4px; flex-shrink:0; }
+  input[type="text"], input[type="number"], textarea, select {
+    width:100%; padding:12px 13px; border:1px solid #cbd4df; border-radius:9px;
+    font:inherit; color:#202b3a; background:#fff; outline:none;
+  }
+  input:focus, textarea:focus, select:focus { border-color:var(--blue); box-shadow:0 0 0 3px rgba(23,74,139,.12); }
+  textarea { min-height:96px; resize:vertical; }
+  .actions { display:flex; gap:12px; flex-wrap:wrap; margin-top:20px; }
+  button {
+    border:0; border-radius:10px; padding:12px 18px; font:inherit; font-weight:750;
+    cursor:pointer;
+  }
+  .submit { background:var(--blue); color:white; }
+  .submit:hover { background:var(--blue-dark); }
+  .reset { background:#fff; color:var(--blue); border:1px solid #cbd4df; }
+  .notice { display:none; background:#fff8dc; border:1px solid #f0d46e; color:#5e4a05; padding:13px 15px; border-radius:10px; margin-top:16px; }
+  .footer { text-align:center; color:var(--grey-text); font-size:.82rem; margin-top:18px; }
+  @media (max-width:600px) {
+    body { padding:14px 10px 32px; }
+    .hero { padding:25px 21px 22px; }
+    .section { padding:19px 16px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <p class="eyebrow">Student survey</p>
+    <h1>Course Expectations &amp;<br>Learning Mindset</h1>
+    <p>This survey helps the instructor understand your expectations, prior impressions, and approach to learning at university. There are no right or wrong answers—please respond honestly.</p>
+  </header>
+  <div class="progress-wrap">
+    <div class="progress-label"><span>Survey progress</span><span id="progressText">0% complete</span></div>
+    <div class="progress" aria-label="Survey completion"><div id="progressBar"></div></div>
+  </div>
+
+  <form id="surveyForm">
+    <section class="section">
+      <h2>Section A — Student Information</h2>
+      <p class="hint">Basic information to help interpret responses.</p>
+      <div class="question">
+        <label class="q-title" for="studentId">1. Student ID <span class="optional">(Optional)</span></label>
+        <input type="text" id="studentId" name="studentId" placeholder="Enter your student ID, if you wish">
+      </div>
+      <div class="question">
+        <span class="q-title">2. What is your current CGPA? <span class="optional">(Optional)</span></span>
+        <input type="number" id="cgpa" name="cgpa" min="0" max="4" step="0.01" placeholder="e.g., 3.50 (0.00–4.00)">
+        <small class="optional">Enter your CGPA on a 4.00 scale, if applicable.</small>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Section B — Your Expectations from the Course</h2>
+      <p class="hint">Tell us what you hope to gain from this course.</p>
+      <div class="question">
+        <span class="q-title">3. What do you primarily expect from this course?</span>
+        <label class="choice"><input type="radio" name="courseExpectation" value="Understand concepts deeply" required><span>A deep understanding of fundamental concepts</span></label>
+        <label class="choice"><input type="radio" name="courseExpectation" value="Learn problem-solving methods"><span>Learning how to solve numerical and analytical problems</span></label>
+        <label class="choice"><input type="radio" name="courseExpectation" value="Prepare for exams"><span>Preparation for examinations and good grades</span></label>
+        <label class="choice"><input type="radio" name="courseExpectation" value="Apply concepts"><span>Applying concepts to real-world engineering problems</span></label>
+        <label class="choice"><input type="radio" name="courseExpectation" value="All of these"><span>All of the above</span></label>
+      </div>
+      <div class="question">
+        <span class="q-title">4. What do you expect most from your instructor? <span class="optional">(Select all that apply)</span></span>
+        <label class="choice"><input type="checkbox" name="instructorExpectations" value="Clear explanations"><span>Clear explanations of difficult concepts</span></label>
+        <label class="choice"><input type="checkbox" name="instructorExpectations" value="Step-by-step solutions"><span>Step-by-step solutions to mathematical problems</span></label>
+        <label class="choice"><input type="checkbox" name="instructorExpectations" value="Guidance for unfamiliar problems"><span>Guidance on approaching unfamiliar problems</span></label>
+        <label class="choice"><input type="checkbox" name="instructorExpectations" value="Real-world applications"><span>Real-world engineering applications</span></label>
+        <label class="choice"><input type="checkbox" name="instructorExpectations" value="Independent learning resources"><span>Resources and directions for independent learning</span></label>
+        <label class="choice"><input type="checkbox" name="instructorExpectations" value="Regular feedback"><span>Regular feedback on my progress</span></label>
+        <label class="choice"><input type="checkbox" name="instructorExpectations" value="Exam preparation"><span>Help preparing for examinations</span></label>
+      </div>
+      <div class="question">
+        <label class="q-title" for="success">5. In your own words, what would make this course a successful learning experience for you?</label>
+        <textarea id="success" name="successfulExperience" placeholder="Write your response here..."></textarea>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Section C — Your Perception of the Instructor</h2>
+      <p class="hint">Honest responses help set clear expectations from the beginning.</p>
+      <div class="question">
+        <span class="q-title">6. Before taking this course, how much have you heard about me as a teacher?</span>
+        <label class="choice"><input type="radio" name="heardAboutTeacher" value="Nothing at all" required><span>Nothing at all</span></label>
+        <label class="choice"><input type="radio" name="heardAboutTeacher" value="A little"><span>A little</span></label>
+        <label class="choice"><input type="radio" name="heardAboutTeacher" value="A fair amount"><span>A fair amount</span></label>
+        <label class="choice"><input type="radio" name="heardAboutTeacher" value="A lot"><span>A lot</span></label>
+      </div>
+      <div class="question">
+        <label class="q-title" for="teacherImpression">7. If you have heard anything about my teaching, what have you heard? <span class="optional">(Optional)</span></label>
+        <textarea id="teacherImpression" name="teacherImpression" placeholder="Positive, negative, or neutral impressions are all welcome."></textarea>
+      </div>
+      <div class="question">
+        <label class="q-title" for="teacherConcern">8. What are you most curious or concerned about regarding my teaching style? <span class="optional">(Optional)</span></label>
+        <textarea id="teacherConcern" name="teacherConcern" placeholder="Share any questions or concerns..."></textarea>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Section D — Understanding University-Level Learning</h2>
+      <p class="hint">These questions explore how you view the roles of the instructor and the student.</p>
+      <div class="question">
+        <span class="q-title">9. What do you think is the primary role of a university instructor?</span>
+        <label class="choice"><input type="radio" name="instructorRole" value="Explain everything" required><span>Explain every topic and solve most problems for students</span></label>
+        <label class="choice"><input type="radio" name="instructorRole" value="Explain demonstrate guide"><span>Explain concepts, demonstrate methods, and guide students toward independent mastery</span></label>
+        <label class="choice"><input type="radio" name="instructorRole" value="Guide exploration"><span>Provide direction and resources while students take primary responsibility for learning</span></label>
+        <label class="choice"><input type="radio" name="instructorRole" value="Focus on exams"><span>Focus mainly on helping students perform well in examinations</span></label>
+      </div>
+      <div class="question">
+        <span class="q-title">10. At university, students may be shown the principles and methods needed to solve a problem without being given its complete solution. How do you feel about this approach?</span>
+        <label class="choice"><input type="radio" name="guidedLearning" value="Welcome it" required><span>I welcome it because it develops independent thinking</span></label>
+        <label class="choice"><input type="radio" name="guidedLearning" value="Understand but need guidance"><span>I understand its value, although I will need guidance</span></label>
+        <label class="choice"><input type="radio" name="guidedLearning" value="Unsure"><span>I am not sure whether I would learn effectively this way</span></label>
+        <label class="choice"><input type="radio" name="guidedLearning" value="Prefer full solutions"><span>I expect the instructor to demonstrate complete solutions more often</span></label>
+      </div>
+      <div class="question">
+        <span class="q-title">11. If you encounter a mathematical or engineering problem that you cannot solve immediately, what would you most likely do first?</span>
+        <label class="choice"><input type="radio" name="difficultProblem" value="Review and explore" required><span>Review the concepts, explore resources, and try different approaches</span></label>
+        <label class="choice"><input type="radio" name="difficultProblem" value="Ask instructor for solution"><span>Wait for the instructor to show the complete solution</span></label>
+        <label class="choice"><input type="radio" name="difficultProblem" value="Ask classmates"><span>Ask classmates to explain or solve it for me</span></label>
+        <label class="choice"><input type="radio" name="difficultProblem" value="Skip problem"><span>Skip the problem and move on to something easier</span></label>
+      </div>
+      <div class="question">
+        <span class="q-title">12. How confident are you in learning a new concept independently after receiving initial guidance?</span>
+        <label class="choice"><input type="radio" name="independentConfidence" value="Very confident" required><span>Very confident</span></label>
+        <label class="choice"><input type="radio" name="independentConfidence" value="Somewhat confident"><span>Somewhat confident</span></label>
+        <label class="choice"><input type="radio" name="independentConfidence" value="Not very confident"><span>Not very confident</span></label>
+        <label class="choice"><input type="radio" name="independentConfidence" value="Not confident"><span>Not confident at all</span></label>
+      </div>
+      <div class="question">
+        <span class="q-title">13. How much time are you realistically willing to dedicate to this course each week, beyond class and lab sessions?</span>
+        <label class="choice"><input type="radio" name="studyTime" value="Less than 1 hour" required><span>Less than 1 hour</span></label>
+        <label class="choice"><input type="radio" name="studyTime" value="1–2 hours"><span>1–2 hours</span></label>
+        <label class="choice"><input type="radio" name="studyTime" value="3–4 hours"><span>3–4 hours</span></label>
+        <label class="choice"><input type="radio" name="studyTime" value="5 or more hours"><span>5 or more hours</span></label>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Section E — Learning Preferences and Challenges</h2>
+      <p class="hint">Help identify the approaches and support that may help you learn effectively.</p>
+      <div class="question">
+        <span class="q-title">14. Which aspect of university-level learning do you anticipate finding most challenging?</span>
+        <label class="choice"><input type="radio" name="challenge" value="Unfamiliar problems" required><span>Solving unfamiliar problems independently</span></label>
+        <label class="choice"><input type="radio" name="challenge" value="Abstract concepts"><span>Understanding abstract or theoretical concepts</span></label>
+        <label class="choice"><input type="radio" name="challenge" value="Mathematical foundations"><span>Applying mathematics and prerequisite knowledge</span></label>
+        <label class="choice"><input type="radio" name="challenge" value="Time management"><span>Managing time and maintaining consistent study habits</span></label>
+        <label class="choice"><input type="radio" name="challenge" value="Theory and practice"><span>Connecting theoretical concepts to engineering applications</span></label>
+      </div>
+      <div class="question">
+        <span class="q-title">15. Which teaching approach would help you learn most effectively?</span>
+        <label class="choice"><input type="radio" name="teachingApproach" value="Concepts and worked examples" required><span>Conceptual explanations followed by worked examples</span></label>
+        <label class="choice"><input type="radio" name="teachingApproach" value="Guided problem solving"><span>Guided problem-solving, with hints rather than complete solutions</span></label>
+        <label class="choice"><input type="radio" name="teachingApproach" value="Independent exploration"><span>Independent exploration with recommended resources</span></label>
+        <label class="choice"><input type="radio" name="teachingApproach" value="Combination"><span>A combination of all three</span></label>
+      </div>
+      <div class="question">
+        <span class="q-title">16. When you make a mistake while solving a problem, what kind of feedback helps you most?</span>
+        <label class="choice"><input type="radio" name="feedback" value="Correct solution" required><span>The correct answer and complete solution</span></label>
+        <label class="choice"><input type="radio" name="feedback" value="Hint" required><span>A hint identifying where my reasoning went wrong</span></label>
+        <label class="choice"><input type="radio" name="feedback" value="Both" required><span>Both: an initial hint and a full explanation when needed</span></label>
+      </div>
+      <div class="question">
+        <label class="q-title" for="additionalComments">17. Is there anything else you would like me to know about your learning needs, expectations, or concerns? <span class="optional">(Optional)</span></label>
+        <textarea id="additionalComments" name="additionalComments" placeholder="Anything else you'd like to share..."></textarea>
+      </div>
+    </section>
+
+    <div class="actions">
+      <button class="submit" type="submit">Submit survey</button>
+      <button class="reset" type="reset">Clear form</button>
+    </div>
+    <div class="notice" id="notice" role="status"></div>
+  </form>
+  <p class="footer">Thank you for sharing your perspective. Your responses can help create a more effective learning environment.</p>
+</div>
+<script>
+  const form = document.getElementById('surveyForm');
+  const progressBar = document.getElementById('progressBar');
+  const progressText = document.getElementById('progressText');
+  const notice = document.getElementById('notice');
+
+  function updateProgress() {
+    const requiredGroups = [...new Set([...form.querySelectorAll('[required]')].map(el => el.name))];
+    const completed = requiredGroups.filter(name => {
+      const group = [...form.querySelectorAll(`[name="${CSS.escape(name)}"]`)];
+      return group.some(el => (el.type === 'radio' || el.type === 'checkbox') ? el.checked : !!el.value.trim());
+    }).length;
+    const percent = Math.round((completed / requiredGroups.length) * 100);
+    progressBar.style.width = percent + '%';
+    progressText.textContent = percent + '% of required questions answered';
+  }
+  form.addEventListener('input', updateProgress);
+  form.addEventListener('change', updateProgress);
+  form.addEventListener('reset', () => setTimeout(() => { notice.style.display='none'; updateProgress(); }, 0));
+  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxuu5_UJDTSpDXIO6HTL5VYryS2vrHfnd7g8tXm3gz61wO9w3L3IfH-zFTnyBxruOXM/exec';
+
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    if (!form.reportValidity()) return;
+
+    const submitButton = form.querySelector('.submit');
+    submitButton.disabled = true;
+    submitButton.textContent = 'Sending...';
+    notice.style.display = 'none';
+
+    const payload = {};
+    const fd = new FormData(form);
+    for (const [key, value] of fd.entries()) {
+      if (Object.prototype.hasOwnProperty.call(payload, key)) {
+        if (!Array.isArray(payload[key])) payload[key] = [payload[key]];
+        payload[key].push(value);
+      } else {
+        payload[key] = value;
+      }
+    }
+
+    // Map the actual HTML form names to the backend's expected field names.
+    payload.primaryExpectation = payload.courseExpectation || '';
+    payload.successfulLearningExperience = payload.successfulExperience || '';
+    payload.heardAboutInstructor = payload.heardAboutTeacher || '';
+    payload.whatHeard = payload.teacherImpression || '';
+    payload.curiosityOrConcerns = payload.teacherConcern || '';
+    payload.independentProblemSolving = payload.guidedLearning || '';
+    payload.unsolvedProblemResponse = payload.difficultProblem || '';
+    payload.independentLearningConfidence = payload.independentConfidence || '';
+    payload.studyHours = payload.studyTime || '';
+    payload.biggestChallenge = payload.challenge || '';
+
+    try {
+      // Form-encoded POST avoids a JSON preflight. no-cors means the browser
+      // cannot read the server response, so this confirms sending, not saving.
+      await fetch(APPS_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+        },
+        body: new URLSearchParams({ payload: JSON.stringify(payload) })
+      });
+
+      notice.textContent = 'Your response has been sent. The browser cannot verify the Google Sheets save, so please check with the instructor if you need confirmation. Avoid submitting again immediately to prevent duplicate responses.';
+      notice.style.display = 'block';
+      notice.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      form.reset();
+      updateProgress();
+    } catch (error) {
+      notice.textContent = 'The request could not be sent. Please check your internet connection and try again. If you are unsure whether it was recorded, check with the instructor before resubmitting.';
+      notice.style.display = 'block';
+    } finally {
+      submitButton.disabled = false;
+      submitButton.textContent = 'Submit survey';
+    }
+  });
+  updateProgress();
+</script>
+</body>
+</html>
